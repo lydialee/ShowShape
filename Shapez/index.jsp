@@ -241,6 +241,7 @@
                         <param name="Y" value="<%=leY %>">
                         <param name="FTStyle" value="<%=leStyle %>">
                         <param name="FTSize" value="<%=leFontSize %>">
+                        hahahhaa
                     </APPLET>				
 			</div>
 		</main>
