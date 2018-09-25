@@ -174,7 +174,7 @@
 	</style>
 </head>
 <body>
-<% 
+<!-- <% 
             String leMessage = session.getAttribute("message") + "";
             String leColor = session.getAttribute("Color") + "";
             String leStyle = session.getAttribute("fontStyle") + "";
@@ -184,7 +184,7 @@
             String leY = session.getAttribute("shapeY") + "";
             String leShape = session.getAttribute("Shape") + "";
             
-        %>
+        %> -->
 	<div class="wrapper">
 		<nav>
 			<form action="ShapeServ" method="POST" onsubmit="return validate(this)">
@@ -202,15 +202,15 @@
 						<h5>Size</h5>
 						<div class="size-options">
 							<div class="slider">
-								<p for="innerX">Inner width: <span id="innerWValue" class="slider-val">20px</span></p>
+								<p for="innerX">Inner width: <span id="innerWValue" class="slider-val">20</span><span> px</span></p>
 								<span class="slider-hint">0 px</span>
-								<input id="innerWSlider" type="range" min="0" max="100" value="50" class="slider" id="innerX" name="Y">
+								<input id="innerWSlider" type="range" oninput="updateSliderValue(this)" onchange="updateSliderValue(this)" min="0" max="100" value="50" class="slider-bar" id="innerX" name="Y">
 								<span class="slider-hint">100 px</span>
 							</div>
 							<div class="slider">
-								<p for="innerY">Inner height: <span id="innerHValue" class="slider-val">20px</span></p>
+								<p for="innerY">Inner height: <span id="innerHValue" class="slider-val">20px</span><span> px</span></p>
 								<span class="slider-hint">0 px</span>
-								<input id="innerHSlider" type="range" min="0" max="100" value="50" class="slider" id="innerY" name="X">
+								<input id="innerHSlider" type="range" oninput="updateSliderValue(this)" onchange="updateSliderValue(this)" min="0" max="100" value="50" class="slider-bar" id="innerY" name="X">
 								<span class="slider-hint">100 px</span>
 							</div>
 						</div>
@@ -223,10 +223,10 @@
 						<input type="text" class="text-field" placeholder="Type message here ..." name="Message">
 					</li>
 					<li class="size-font">
-						<h5>Font Size:<span class="slider-val"> 20px</span></h5>
 						<div class="slider">
+						<h5>Font Size: <span class="slider-val">20</span><span> px</span></h5>
 							<span class="slider-hint">0 px</span>
-							<input type="range" min="0" max="100" value="50" class="slider" id="innerY" name="FTSize">
+							<input type="range" oninput="updateSliderValue(this)" onchange="updateSliderValue(this)" min="0" max="100" value="50" class="slider-bar" id="innerY" name="FTSize">
 							<span class="slider-hint">100 px</span>
 						</div>
 					</li>
@@ -282,8 +282,16 @@
 		</main>
 	</div>
 	<script>
-		var sliders = document.getElementsByClass('innerWSlider');
+		var sliders = document.getElementsByClassName('slider-bar')
+		// console.log(sliders[0].value)
+		for (let i = 0; i < sliders.length; i++) {
+			updateSliderValue(sliders[i])
+		}
 
+		function updateSliderValue(slider) {
+			let sliderText = slider.parentElement.getElementsByClassName('slider-val')[0]
+			sliderText.innerHTML = slider.value
+		}
 	</script>
 </body>
 </html>
