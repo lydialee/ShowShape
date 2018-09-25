@@ -31,14 +31,16 @@
 		}
 		nav {
 			border: 3px solid #f8f9fa;
-			height: 270px;
-			margin: 20px 0 30px;
+			height: 300px;
+			margin: 20px 0;
+			border-radius: .25rem;
 		}
 		nav > form {
 			padding: 15px;
 		}
 		main {
-			border: 3px solid #f8f9fa;
+			/*border: 3px solid #f8f9fa;*/
+			/*border-radius: .25rem;*/
 			height: 300px;
 			text-align: center;
 			padding-top: 50px;
@@ -50,31 +52,32 @@
 			height: 200px;
 			background: #2f6f9f;
 		}
-		.options {
-			margin: 0 auto;
-			overflow: auto
-		}
-		.options li {
-			margin-top: 5px;
+		.options-shape, .options-text, .options-color {
+			width: 27%;
+			overflow: auto;
 			float: left;
-			margin: 15px;
-			width: 255px;
-			height: 60px;
+			background-color: rgba(0,0,0,.05);
+			border-radius: 4px;
+			padding: 15px;
 		}
-		.options li:nth-child(3n) {
+		.options-shape, .options-text {
+			margin-right: 35px;
+		}
+		.options-shape li {
+			float: left;
+			width: 255px;
+		}
+		.options-shape li:nth-child(3n) {
 			margin-right: 0;
 		}
-		.size-font span{
-			margin-left: 15px;
-		}
 		.text-field {
-			width: 70%;
+			width: 90%;
 		    height: 20px;
 		    padding: .375rem .75rem;
 		    font-size: 1rem;
 		    line-height: 1.5;
 		    color: #495057;
-		    background-color: #fff;
+		    background-color: transparent;
 		    background-clip: padding-box;
 		    border: none;
 		    border-bottom: 1px solid #ced4da;
@@ -91,6 +94,11 @@
 			-webkit-border-radius: 50px;
 			border-radius: 50px;
 			line-height: 100px;
+		}
+		.submit {
+			width: 100%;
+			float: left;
+			margin-top: 20px;
 		}
 		.sbtn {
     		display: block;
@@ -113,18 +121,18 @@
 		    border-radius: .25rem;
 		    transition: color .15s ease-in-out,background-color .15s ease-in-out,border-color .15s ease-in-out,box-shadow .15s ease-in-out;
 		}
-		.shape-options {
+		.shapes {
 			display: inline-block;
 		}
-		.shape-options li {
+		.shapes li {
 			margin-right: 15px;
 			cursor: pointer;
 		}
-		.shape-options > h5 {
+		.shapes > h5 {
 			font-style: normal;
 			display: inline-block;
 		}
-		.shape-options li:nth-child(1) {
+		.shapes li:nth-child(1) {
 			width: 30px;
 			height: 20px;
 			background: #007bff;
@@ -132,18 +140,28 @@
 			-webkit-border-radius: 10px;
 			border-radius: 10px;
 		}
-		.shape-options li:nth-child(2) {
+		.shapes li:nth-child(2) {
 			width: 30px;
 			height: 20px;
 			background: #007bff;
 		}
-		.shape-options li:nth-child(3) {
+		.shapes li:nth-child(3) {
 			width: 20px;
 			height: 20px;
 			background: #007bff;
 			-moz-border-radius: 10px;
 			-webkit-border-radius: 10px;
 			border-radius: 10px;
+		}
+		.shapes input {
+			visibility: hidden;
+		}
+		.slider-hint {
+			position: relative;
+			top: -3px;
+		}
+		.slider-val {
+			color: #2f6f9f;
 		}
 		.color-picker {
 			width: 30px;
@@ -170,19 +188,59 @@
 	<div class="wrapper">
 		<nav>
 			<form action="ShapeServ" method="POST" onsubmit="return validate(this)">
-				<ul class="options">
+				<ul class="options-shape">
+					
+					<li>
+						<h5>Shape</h5>
+						<ul class="shapes">
+							<li title="Round Rectangle"><input name="Shape" type="radio" id="oval" value="ROUNDRECT" /></li>
+							<li title="Rectangle"><input name="Shape" type="radio" id="roundrect" value="RECT" /></li>
+							<li title="Oval"><input name="Shape" type="radio" id="roundrect" value="OVAL" /></li>
+						</ul>
+					</li>
+					<li>
+						<h5>Size</h5>
+						<div class="size-options">
+							<div class="slider">
+								<p for="innerX">Inner width: <span id="innerWValue" class="slider-val">20px</span></p>
+								<span class="slider-hint">0 px</span>
+								<input id="innerWSlider" type="range" min="0" max="100" value="50" class="slider" id="innerX" name="Y">
+								<span class="slider-hint">100 px</span>
+							</div>
+							<div class="slider">
+								<p for="innerY">Inner height: <span id="innerHValue" class="slider-val">20px</span></p>
+								<span class="slider-hint">0 px</span>
+								<input id="innerHSlider" type="range" min="0" max="100" value="50" class="slider" id="innerY" name="X">
+								<span class="slider-hint">100 px</span>
+							</div>
+						</div>
+					</li>
+					
+				</ul>
+				<ul class="options-text">
 					<li>
 						<h5>Text</h5>
 						<input type="text" class="text-field" placeholder="Type message here ..." name="Message">
 					</li>
-					<li>
-						<h5>Shape</h5>
-						<ul class="shape-options">
-							<li><input name="Shape" type="radio" id="oval" value="ROUNDRECT" /></li>
-							<li><input name="Shape" type="radio" id="roundrect" value="RECT" /></li>
-							<li><input name="Shape" type="radio" id="roundrect" value="OVAL" /></li>
-						</ul>
+					<li class="size-font">
+						<h5>Font Size:<span class="slider-val"> 20px</span></h5>
+						<div class="slider">
+							<span class="slider-hint">0 px</span>
+							<input type="range" min="0" max="100" value="50" class="slider" id="innerY" name="FTSize">
+							<span class="slider-hint">100 px</span>
+						</div>
 					</li>
+					<li>
+						<h5>Font Style</h5>
+						<select name="FTStyle">
+						  <option value ="REGULAR">Regular</option>
+						  <option value ="BOLD">Bold</option>
+						  <option value="ITALIC">Italic</option>
+						  <option value="BOLD ITALIC">Bold Italic</option>
+						</select>
+					</li>
+				</ul>
+				<ul class="options-color">
 					<li>
 						<h5>Foreground Color</h5>
 						<select name="BGColor">
@@ -201,32 +259,10 @@
 						  <option value="yellow">Yellow</option>
 						</select>
 					</li>
-					<li>
-						<h5>Size</h5>
-						<div class="size-options">
-							<label for="innerX">inner width</label>
-							<input type="range" min="1" max="100" value="50" class="slider" id="innerX" name="Y">
-							<br>
-							<label for="innerY">inner height</label>
-							<input type="range" min="1" max="100" value="50" class="slider" id="innerY" name="X">
-						</div>
-					</li>
-					<li class="size-font">
-						<h5>Font Size</h5>
-						<input type="range" min="1" max="100" value="50" class="slider" id="innerY" name="FTSize">
-						<span>20px</span>
-					</li>
-					<li>
-						<h5>Font Style</h5>
-						<select name="FTStyle">
-						  <option value ="REGULAR">Regular</option>
-						  <option value ="BOLD">Bold</option>
-						  <option value="ITALIC">Italic</option>
-						  <option value="BOLD ITALIC">Bold Italic</option>
-						</select>
-					</li>
 				</ul>
-				<input class="sbtn" type="submit" value="Submit My Design">
+				<div class="submit">
+					<input class="sbtn" type="submit" value="Submit My Design">
+				</div>
 			</form>
 		</nav>
 		<main class="output">
@@ -241,10 +277,13 @@
                         <param name="Y" value="<%=leY %>">
                         <param name="FTStyle" value="<%=leStyle %>">
                         <param name="FTSize" value="<%=leFontSize %>">
-                        hahahhaa
                     </APPLET>				
 			</div>
 		</main>
 	</div>
+	<script>
+		var sliders = document.getElementsByClass('innerWSlider');
+
+	</script>
 </body>
 </html>
